@@ -1,0 +1,1281 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerador de assinatura de e-mail institucional da Universidade Federal Rural do Rio de Janeiro.">
+  <title>Gerador de assinatura institucional | UFRRJ</title>
+  <link rel="icon" type="image/x-icon" href="https://portal.ufrrj.br/wp-content/themes/portalufrrj/assets/images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul-rural: #14387f;
+      --verde-rural: #008237;
+      --azul-profundo: #0d2b60;
+      --texto: #233044;
+      --texto-suave: #64748b;
+      --borda: #d7e0eb;
+      --borda-clara: #e8eef5;
+      --fundo: #f4f7fb;
+      --branco: #ffffff;
+      --foco: rgba(20, 56, 127, 0.16);
+      --sombra: 0 16px 38px rgba(18, 44, 81, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0 20px 48px;
+      color: var(--texto);
+      background: var(--fundo);
+      font-family: "Lato", Calibri, Arial, sans-serif;
+    }
+
+    .institutional-rule {
+      display: flex;
+      width: 100%;
+      height: 6px;
+      margin-bottom: 34px;
+      background: var(--azul-rural);
+    }
+
+    .institutional-rule::after {
+      width: 28%;
+      content: "";
+      background: var(--verde-rural);
+    }
+
+    .app-shell {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 28px;
+      padding: 0 4px;
+    }
+
+    .page-header img {
+      display: block;
+      width: 86px;
+      height: auto;
+      flex: 0 0 auto;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 68px;
+      flex: 0 0 auto;
+      background: var(--borda);
+    }
+
+    .header-kicker {
+      margin: 0 0 6px;
+      color: var(--verde-rural);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      margin-bottom: 7px;
+      color: var(--azul-rural);
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      line-height: 1.12;
+    }
+
+    .header-description {
+      max-width: 680px;
+      margin-bottom: 0;
+      color: var(--texto-suave);
+      font-size: 0.96rem;
+      line-height: 1.55;
+    }
+
+    .app-grid {
+      display: grid;
+      grid-template-columns: minmax(300px, 0.85fr) minmax(0, 1.15fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid var(--borda);
+      border-radius: 14px;
+      background: var(--branco);
+      box-shadow: var(--sombra);
+    }
+
+    .panel-header {
+      padding: 22px 26px 18px;
+      border-bottom: 1px solid var(--borda-clara);
+    }
+
+    .panel-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 5px;
+    }
+
+    .panel-marker {
+      width: 4px;
+      height: 20px;
+      border-radius: 2px;
+      background: var(--verde-rural);
+    }
+
+    .panel-title {
+      margin-bottom: 0;
+      color: var(--azul-rural);
+      font-size: 1.08rem;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
+    .panel-description {
+      margin-bottom: 0;
+      color: var(--texto-suave);
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .form-content,
+    .preview-content {
+      padding: 22px 26px 26px;
+    }
+
+    fieldset {
+      min-width: 0;
+      margin: 0 0 20px;
+      padding: 0;
+      border: 0;
+    }
+
+    fieldset:last-of-type {
+      margin-bottom: 0;
+    }
+
+    legend {
+      width: 100%;
+      margin-bottom: 14px;
+      padding: 0 0 8px;
+      border-bottom: 1px solid var(--borda-clara);
+      color: var(--azul-profundo);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      color: #334155;
+      font-size: 0.81rem;
+      font-weight: 700;
+    }
+
+    .optional {
+      color: var(--texto-suave);
+      font-size: 0.7rem;
+      font-weight: 400;
+    }
+
+    input,
+    select {
+      display: block;
+      width: 100%;
+      min-height: 43px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: 0;
+      color: var(--texto);
+      background: #ffffff;
+      font: inherit;
+      font-size: 0.88rem;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    select {
+      cursor: pointer;
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    input:hover,
+    select:hover {
+      border-color: #94a3b8;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--azul-rural);
+      box-shadow: 0 0 0 4px var(--foco);
+    }
+
+    .registro-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 10px;
+    }
+
+    .field-hint {
+      margin: 6px 0 0;
+      color: var(--texto-suave);
+      font-size: 0.74rem;
+      line-height: 1.45;
+    }
+
+    .endereco-detalhes-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 90px;
+      gap: 10px;
+    }
+
+    .storage-note {
+      margin: 20px 0 0;
+      color: var(--texto-suave);
+      font-size: 0.74rem;
+      line-height: 1.5;
+    }
+
+    .field-divider {
+      margin: 16px 0;
+      border: 0;
+      border-top: 1px solid var(--borda-clara);
+    }
+
+    .checkbox-field {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      margin-bottom: 0;
+      cursor: pointer;
+      color: var(--texto);
+      font-size: 0.81rem;
+      font-weight: 700;
+    }
+
+    .checkbox-field input[type="checkbox"] {
+      width: 16px;
+      min-height: 0;
+      height: 16px;
+      margin: 0;
+      accent-color: var(--azul-rural);
+      cursor: pointer;
+    }
+
+    .storage-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .storage-actions .clear-storage-button {
+      flex: 1 1 auto;
+      margin-top: 0;
+    }
+
+    .clear-storage-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--borda);
+      border-radius: 8px;
+      color: var(--texto-suave);
+      background: transparent;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: border-color 160ms ease, color 160ms ease;
+    }
+
+    .clear-storage-button:hover {
+      border-color: #a52620;
+      color: #a52620;
+    }
+
+    .preview-area {
+      padding: 20px;
+      border: 1px solid var(--borda-clara);
+      border-radius: 10px;
+      background: #fbfcfe;
+    }
+
+    .preview-label {
+      margin: 0 0 12px;
+      color: var(--texto-suave);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    #assinatura {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 22px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 8px 20px rgba(18, 44, 81, 0.07);
+    }
+
+    .copy-button {
+      display: inline-flex;
+      width: 100%;
+      min-height: 48px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 18px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 8px;
+      color: #ffffff;
+      background: var(--azul-rural);
+      box-shadow: 0 7px 16px rgba(20, 56, 127, 0.18);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.9rem;
+      font-weight: 900;
+      transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .copy-button:hover {
+      background: var(--azul-profundo);
+      box-shadow: 0 9px 20px rgba(20, 56, 127, 0.24);
+      transform: translateY(-1px);
+    }
+
+    .copy-button:focus-visible {
+      outline: 0;
+      box-shadow: 0 0 0 4px var(--foco), 0 7px 16px rgba(20, 56, 127, 0.18);
+    }
+
+    .copy-button:active {
+      transform: translateY(0);
+    }
+
+    .copy-status {
+      min-height: 20px;
+      margin: 10px 0 0;
+      color: var(--verde-rural);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .copy-status.error {
+      color: #a52620;
+    }
+
+    .gmail-guide {
+      margin-top: 22px;
+      padding: 16px 17px;
+      border-left: 3px solid var(--verde-rural);
+      background: #f7faf8;
+    }
+
+    .gmail-guide-title {
+      margin-bottom: 7px;
+      color: var(--azul-profundo);
+      font-size: 0.82rem;
+      font-weight: 900;
+    }
+
+    .gmail-guide-steps {
+      margin: 0 0 10px;
+      padding-left: 20px;
+      color: var(--texto-suave);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .gmail-guide-steps li + li {
+      margin-top: 4px;
+    }
+
+    .gmail-guide-text {
+      margin-bottom: 0;
+      color: var(--texto-suave);
+      font-size: 0.8rem;
+      line-height: 1.55;
+    }
+
+    .gmail-guide-text a {
+      color: var(--azul-rural);
+      font-weight: 700;
+    }
+
+    .page-footer {
+      margin-top: 24px;
+      padding: 0 4px;
+      color: var(--texto-suave);
+      font-size: 0.75rem;
+      text-align: center;
+    }
+
+    .page-footer strong {
+      color: var(--azul-rural);
+      font-weight: 700;
+    }
+
+    .noscript-message {
+      max-width: 1180px;
+      margin: 20px auto 0;
+      padding: 14px 16px;
+      border: 1px solid #ecc7c3;
+      border-radius: 8px;
+      color: #8f1d18;
+      background: #fff6f5;
+    }
+
+    @media (max-width: 860px) {
+      .app-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      body {
+        padding-right: 12px;
+        padding-bottom: 32px;
+        padding-left: 12px;
+      }
+
+      .institutional-rule {
+        margin-bottom: 26px;
+      }
+
+      .page-header {
+        align-items: flex-start;
+        gap: 14px;
+        padding: 0;
+      }
+
+      .page-header img {
+        width: 66px;
+      }
+
+      .header-divider {
+        height: 58px;
+      }
+
+      .header-kicker {
+        font-size: 0.63rem;
+      }
+
+      h1 {
+        font-size: 1.55rem;
+      }
+
+      .header-description {
+        font-size: 0.86rem;
+      }
+
+      .panel-header,
+      .form-content,
+      .preview-content {
+        padding-right: 18px;
+        padding-left: 18px;
+      }
+
+      .preview-area {
+        padding: 10px;
+      }
+
+      #assinatura {
+        padding: 14px;
+      }
+
+      .registro-row {
+        grid-template-columns: 1fr;
+      }
+
+      .endereco-detalhes-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="institutional-rule" aria-hidden="true"></div>
+
+  <main class="app-shell">
+    <header class="page-header">
+      <img src="https://institucional.ufrrj.br/ccs/files/2019/06/rural_logo03.png" alt="UFRRJ" width="86">
+      <div class="header-divider" aria-hidden="true"></div>
+      <div>
+        <p class="header-kicker">Universidade Federal Rural do Rio de Janeiro</p>
+        <h1>Gerador de assinatura institucional</h1>
+        <p class="header-description">Preencha os dados funcionais para gerar uma assinatura padronizada e copiá-la diretamente para o Gmail.</p>
+      </div>
+    </header>
+
+    <div class="app-grid">
+      <section class="panel" aria-labelledby="dados-titulo">
+        <div class="panel-header">
+          <div class="panel-heading">
+            <span class="panel-marker" aria-hidden="true"></span>
+            <h2 class="panel-title" id="dados-titulo">Dados funcionais</h2>
+          </div>
+          <p class="panel-description">A pré-visualização é atualizada automaticamente enquanto você digita.</p>
+        </div>
+
+        <div class="form-content">
+          <fieldset>
+            <legend>Identificação</legend>
+            <div class="form-group">
+              <label for="in_nome">Nome</label>
+              <input type="text" id="in_nome" value="" placeholder="Ex.: Maria da Silva" autocomplete="name" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_cargo">Cargo</label>
+              <input type="text" id="in_cargo" value="" placeholder="Ex.: Assistente em Administração" autocomplete="organization-title" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_funcao">Função <span class="optional">Opcional</span></label>
+              <input type="text" id="in_funcao" value="" placeholder="Ex.: Diretor(a) de Departamento" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_conselho_sigla">Conselho de classe <span class="optional">Opcional</span></label>
+              <select id="in_conselho_sigla" onchange="handleConselhoChange()">
+                <option value="">Não se aplica</option>
+                <option value="CRA">CRA — Administração</option>
+                <option value="CRB">CRB — Biblioteconomia</option>
+                <option value="CRBio">CRBio — Biologia</option>
+                <option value="CRBM">CRBM — Biomedicina</option>
+                <option value="CRC">CRC — Contabilidade</option>
+                <option value="CRECI">CRECI — Corretores de Imóveis</option>
+                <option value="CORECON">CORECON — Economia</option>
+                <option value="CRED">CRED — Economia Doméstica</option>
+                <option value="CREF">CREF — Educação Física</option>
+                <option value="COREN">COREN — Enfermagem</option>
+                <option value="CREA">CREA — Engenharia e Agronomia</option>
+                <option value="CONFE">CONFE — Estatística</option>
+                <option value="CRF">CRF — Farmácia</option>
+                <option value="CREFITO">CREFITO — Fisioterapia e Terapia Ocupacional</option>
+                <option value="CRFa">CRFa — Fonoaudiologia</option>
+                <option value="CRM">CRM — Medicina</option>
+                <option value="CRMV">CRMV — Medicina Veterinária</option>
+                <option value="COREM">COREM — Museologia</option>
+                <option value="CRN">CRN — Nutricionistas</option>
+                <option value="CRO">CRO — Odontologia</option>
+                <option value="CORERP">CORERP — Profissionais de Relações Públicas</option>
+                <option value="CRP">CRP — Psicologia</option>
+                <option value="CRQ">CRQ — Química</option>
+                <option value="CRESS">CRESS — Serviço Social</option>
+                <option value="CRDD">CRDD — Despachantes Documentalistas</option>
+                <option value="CORE">CORE — Representantes Comerciais</option>
+                <option value="CRT">CRT — Técnicos Industriais</option>
+                <option value="CRTR">CRTR — Técnicos em Radiologia</option>
+                <option value="CAU">CAU — Arquitetura e Urbanismo</option>
+                <option value="OAB">OAB — Advocacia</option>
+                <option value="OMB">OMB — Música</option>
+                <option value="__outro__">Outro (não listado)</option>
+              </select>
+            </div>
+            <div class="form-group registro-row" id="registro-detalhes" style="display: none;">
+              <div>
+                <label for="in_conselho_uf">UF do registro <span class="optional">Opcional</span></label>
+                <select id="in_conselho_uf" onchange="updateSignature()">
+                  <option value="">—</option>
+                  <option value="AC">AC</option>
+                  <option value="AL">AL</option>
+                  <option value="AP">AP</option>
+                  <option value="AM">AM</option>
+                  <option value="BA">BA</option>
+                  <option value="CE">CE</option>
+                  <option value="DF">DF</option>
+                  <option value="ES">ES</option>
+                  <option value="GO">GO</option>
+                  <option value="MA">MA</option>
+                  <option value="MT">MT</option>
+                  <option value="MS">MS</option>
+                  <option value="MG">MG</option>
+                  <option value="PA">PA</option>
+                  <option value="PB">PB</option>
+                  <option value="PR">PR</option>
+                  <option value="PE">PE</option>
+                  <option value="PI">PI</option>
+                  <option value="RJ">RJ</option>
+                  <option value="RN">RN</option>
+                  <option value="RS">RS</option>
+                  <option value="RO">RO</option>
+                  <option value="RR">RR</option>
+                  <option value="SC">SC</option>
+                  <option value="SP">SP</option>
+                  <option value="SE">SE</option>
+                  <option value="TO">TO</option>
+                </select>
+              </div>
+              <div>
+                <label for="in_registro_numero">Número de registro</label>
+                <input type="text" id="in_registro_numero" value="" placeholder="Ex.: 2023-000000" oninput="updateSignature()">
+              </div>
+            </div>
+            <div class="form-group" id="registro-outro-wrap" style="display: none;">
+              <label for="in_conselho_outro">Nome/sigla do conselho <span class="optional">Opcional</span></label>
+              <input type="text" id="in_conselho_outro" value="" placeholder="Ex.: Conselho Regional de X" oninput="updateSignature()">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Unidade administrativa</legend>
+            <div class="form-group">
+              <label for="in_nivel1">Pró-Reitoria / Instituto</label>
+              <input type="text" id="in_nivel1" value="" placeholder="Ex.: Pró-Reitoria de Extensão – PROEXT ou Instituto de Zootecnia – IZ" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_nivel2">Departamento</label>
+              <input type="text" id="in_nivel2" value="" placeholder="Ex.: Departamento de Compras e Contratos" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_nivel3">Coordenadoria / Divisão <span class="optional">Opcional</span></label>
+              <input type="text" id="in_nivel3" value="" placeholder="Ex.: Coordenadoria de Compras ou Divisão de Patrimônio" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_nivel4">Seção / Setor / Núcleo <span class="optional">Opcional</span></label>
+              <input type="text" id="in_nivel4" value="" placeholder="Ex.: Seção de Assuntos Administrativos" oninput="updateSignature()">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Contato</legend>
+            <div class="form-group">
+              <label for="in_campus">Campus <span class="optional">Opcional</span></label>
+              <select id="in_campus" onchange="preencherEnderecoCampus()">
+                <option value="">Selecione para preencher o endereço automaticamente</option>
+                <option value="Campus Seropédica – BR-465, km 7|Seropédica/RJ">Seropédica (Sede)</option>
+                <option value="Instituto Multidisciplinar (IM) – Av. Governador Roberto Silveira, s/n, Centro|Nova Iguaçu/RJ">Nova Iguaçu – Instituto Multidisciplinar (IM)</option>
+                <option value="Instituto Três Rios (ITR) – Av. Prefeito Alberto Lavinas, 1847, Centro|Três Rios/RJ">Três Rios – Instituto Três Rios (ITR)</option>
+                <option value="Campus Dr. Leonel Miranda – Estrada do Açúcar, km 5, s/nº, Penha|Campos dos Goytacazes/RJ">Campos dos Goytacazes – Campus Dr. Leonel Miranda</option>
+                <option value="CPDA – Av. Presidente Vargas, 417, Centro|Rio de Janeiro/RJ">Rio de Janeiro (Centro) – CPDA</option>
+              </select>
+              <p class="field-hint">Preenche logradouro e cidade/UF abaixo. Continua editável: complete com prédio e sala, ou corrija se sua unidade ficar em outro endereço dentro do mesmo município.</p>
+            </div>
+            <div class="form-group">
+              <label for="in_endereco">Logradouro</label>
+              <input type="text" id="in_endereco" value="" placeholder="Ex.: BR-465, km 7" autocomplete="address-line1" oninput="updateSignature()">
+              <p class="field-hint">Selecionar um campus acima já preenche esta linha. Complete prédio, andar e sala logo abaixo — o campus de Seropédica é extenso, e essa informação facilita sua localização.</p>
+            </div>
+            <div class="form-group endereco-detalhes-row">
+              <div>
+                <label for="in_predio">Prédio / Bloco <span class="optional">Opcional</span></label>
+                <input type="text" id="in_predio" value="" placeholder="Ex.: Prédio Principal (P1)" oninput="updateSignature()">
+              </div>
+              <div>
+                <label for="in_andar">Andar <span class="optional">Opcional</span></label>
+                <input type="text" id="in_andar" value="" placeholder="Ex.: 2º ou Térreo" oninput="updateSignature()">
+              </div>
+              <div>
+                <label for="in_sala">Sala <span class="optional">Opcional</span></label>
+                <input type="text" id="in_sala" value="" placeholder="Ex.: 210" oninput="updateSignature()">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="in_cidade_uf">Cidade/UF</label>
+              <input type="text" id="in_cidade_uf" value="" placeholder="Ex.: Seropédica/RJ" autocomplete="address-level2" oninput="updateSignature()">
+              <p class="field-hint">Vem sempre por último na linha do endereço, depois do complemento — é o padrão de endereçamento dos Correios.</p>
+            </div>
+            <div class="form-group">
+              <label for="in_telefone">Telefone</label>
+              <input type="tel" id="in_telefone" value="" placeholder="Ex.: (21) 0000-0000" autocomplete="tel" inputmode="numeric" maxlength="15" oninput="aplicarMascaraTelefone(this); updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_ramal">Ramal <span class="optional">Opcional</span></label>
+              <input type="text" id="in_ramal" value="" placeholder="Ex.: 0000" inputmode="numeric" oninput="updateSignature()">
+            </div>
+            <div class="form-group">
+              <label for="in_whatsapp">WhatsApp <span class="optional">Opcional</span></label>
+              <input type="tel" id="in_whatsapp" value="" placeholder="Ex.: (21) 98765-4321" autocomplete="tel" inputmode="numeric" maxlength="15" oninput="aplicarMascaraTelefone(this); updateSignature()">
+              <p class="field-hint">Gera automaticamente um link wa.me para contato direto.</p>
+            </div>
+            <hr class="field-divider">
+            <div class="form-group">
+              <label class="checkbox-field">
+                <input type="checkbox" id="in_redes_sociais" onchange="updateSignature()">
+                Incluir redes sociais institucionais da UFRRJ
+              </label>
+              <p class="field-hint">Adiciona uma linha com os canais oficiais da Universidade (Facebook, Instagram, YouTube e LinkedIn) — não é para perfis pessoais ou do seu setor.</p>
+            </div>
+          </fieldset>
+
+          <hr class="field-divider">
+          <p class="storage-note">Os dados digitados ficam salvos apenas neste navegador (armazenamento local), para que o formulário venha preenchido da próxima vez que você abrir esta página. Nada é enviado a nenhum servidor.</p>
+          <div class="storage-actions">
+            <button class="clear-storage-button" type="button" onclick="exportarDados()">Exportar dados (.json)</button>
+            <button class="clear-storage-button" type="button" onclick="document.getElementById('input-importar-dados').click()">Importar dados (.json)</button>
+            <button class="clear-storage-button" type="button" onclick="limparDadosSalvos()">Apagar dados salvos neste navegador</button>
+          </div>
+          <input type="file" id="input-importar-dados" accept="application/json,.json" style="display: none;" onchange="importarDados(event)">
+          <p class="copy-status" id="storage-status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="preview-titulo">
+        <div class="panel-header">
+          <div class="panel-heading">
+            <span class="panel-marker" aria-hidden="true"></span>
+            <h2 class="panel-title" id="preview-titulo">Pré-visualização</h2>
+          </div>
+          <p class="panel-description">A assinatura mantém a composição original em duas colunas, com divisor verde e ajuste de largura para telas menores.</p>
+        </div>
+
+        <div class="preview-content">
+          <div class="preview-area">
+            <p class="preview-label">Área de assinatura</p>
+            <div id="assinatura">
+              <div style="width: 100%; max-width: 600px; background-color: transparent; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #706F6F; line-height: 1.45;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; max-width: 600px; background-color: transparent; border-collapse: collapse; table-layout: fixed; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #706F6F;">
+                  <tr>
+                    <td width="108" style="width: 108px; padding: 4px 18px 4px 0; vertical-align: middle; border-right: 2px solid #008237; background-color: transparent;">
+                      <img src="https://institucional.ufrrj.br/ccs/files/2019/06/rural_logo03.png" alt="UFRRJ" width="92" style="display: block; width: 92px; max-width: 100%; height: auto; border: 0;">
+                    </td>
+                    <td style="padding: 4px 0 4px 18px; vertical-align: middle; word-wrap: break-word; overflow-wrap: anywhere; background-color: transparent;">
+                      <div style="margin-bottom: 8px;">
+                        <span id="out_nome" style="display: none; margin-bottom: 2px; color: #14387f; font-size: 16px; font-weight: 900; line-height: 1.25;"></span>
+                        <span id="out_cargo" style="display: none; color: #14387f; font-size: 12px; font-weight: 700; line-height: 1.4;"></span>
+                        <span id="out_funcao" style="display: none; margin-top: 3px; color: #14387f; font-size: 12px; font-weight: 700; line-height: 1.4;"></span>
+                        <span id="out_registro" style="display: none; margin-top: 3px; color: #706F6F; font-size: 11px; font-weight: 400; line-height: 1.4;"></span>
+                      </div>
+
+                      <span id="out_nivel1" style="display: none; color: #706F6F;"></span>
+                      <span id="out_nivel2" style="display: none; color: #706F6F;"></span>
+                      <span id="out_nivel3" style="display: none; color: #706F6F;"></span>
+                      <span id="out_nivel4" style="display: none; color: #706F6F;"></span>
+
+                      <span id="out_endereco_container" style="display: none; margin-top: 6px; color: #706F6F;">
+                        <strong style="color: #706F6F;">Endereço:</strong> <span id="out_endereco"></span>
+                      </span>
+
+                      <span style="display: block; margin-top: 8px; color: #706F6F;">
+                        <span id="out_telefone_container" style="display: none;">
+                          <strong style="color: #706F6F;">Tel.:</strong>
+                          <a id="out_telefone_link" href="#" style="color: #706F6F; text-decoration: none;"><span id="out_telefone"></span></a>
+                        </span>
+                        <span id="sep_telefone_ramal" style="display: none; color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <span id="out_ramal_container" style="display: none;">
+                          <strong style="color: #706F6F;">Ramal:</strong> <span id="out_ramal"></span>
+                        </span>
+                        <span id="sep_ramal_whatsapp" style="display: none; color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <span id="out_whatsapp_container" style="display: none;">
+                          <strong style="color: #706F6F;">WhatsApp:</strong>
+                          <a id="out_whatsapp_link" href="#" target="_blank" rel="noopener noreferrer" style="color: #706F6F; text-decoration: none;"><span id="out_whatsapp"></span></a>
+                        </span>
+                        <span id="sep_contato_site" style="display: none; color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <a href="https://www.ufrrj.br" style="color: #14387f; text-decoration: none; font-weight: 700;">www.ufrrj.br</a>
+                      </span>
+
+                      <span id="out_redes_sociais" style="display: none; margin-top: 8px; color: #706F6F;">
+                        <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Siga a UFRRJ:</span>
+                        <a href="https://www.facebook.com/universidadefederalrural" target="_blank" rel="noopener noreferrer" style="color: #14387f; text-decoration: none; font-weight: 700;">Facebook</a>
+                        <span style="color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <a href="https://www.instagram.com/universidadefederalrural/" target="_blank" rel="noopener noreferrer" style="color: #14387f; text-decoration: none; font-weight: 700;">Instagram</a>
+                        <span style="color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <a href="https://www.youtube.com/user/universidaderural" target="_blank" rel="noopener noreferrer" style="color: #14387f; text-decoration: none; font-weight: 700;">YouTube</a>
+                        <span style="color: #B2B2B2;">&nbsp; · &nbsp;</span>
+                        <a href="https://linkedin.com/school/universidade-federal-rural-do-rio-de-janeiro" target="_blank" rel="noopener noreferrer" style="color: #14387f; text-decoration: none; font-weight: 700;">LinkedIn</a>
+                      </span>
+
+
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <button class="copy-button" type="button" onclick="copiarAssinatura()">Copiar assinatura formatada</button>
+          <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+
+          <div class="gmail-guide">
+            <p class="gmail-guide-title">Como usar no Gmail</p>
+            <ol class="gmail-guide-steps">
+              <li>Clique em "Copiar assinatura formatada" acima.</li>
+              <li>Abra as configurações do Gmail (ícone de engrenagem → Ver todas as configurações).</li>
+              <li>Na aba "Geral", role até a seção "Assinatura" e cole o conteúdo copiado (Ctrl+V) no campo correspondente.</li>
+              <li>Role até o final da página e clique em "Salvar alterações".</li>
+            </ol>
+            <p class="gmail-guide-text"><a href="https://support.google.com/mail/answer/8395?hl=pt-BR&amp;co=GENIE.Platform%3DDesktop" target="_blank" rel="noopener">Saiba mais na Central de Ajuda do Gmail</a>.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer class="page-footer"><strong>Uso institucional — UFRRJ</strong> · Universidade Federal Rural do Rio de Janeiro · Desenvolvido pela CITIC — Coordenação de Infraestrutura de TIC</footer>
+  </main>
+
+  <noscript>
+    <p class="noscript-message">Ative o JavaScript no navegador para preencher os dados e gerar a assinatura.</p>
+  </noscript>
+
+  <script>
+    function updateElement(inputId, outputId, displayMode, containerId) {
+      var input = document.getElementById(inputId);
+      var output = document.getElementById(outputId);
+      var container = containerId ? document.getElementById(containerId) : output;
+      var value = input.value.trim();
+
+      output.textContent = value;
+      container.style.display = value ? displayMode : 'none';
+    }
+
+    function updateSeparators() {
+      var telefone = document.getElementById('in_telefone').value.trim();
+      var ramal = document.getElementById('in_ramal').value.trim();
+      var whatsapp = document.getElementById('in_whatsapp').value.trim();
+      var separadorTelefoneRamal = document.getElementById('sep_telefone_ramal');
+      var separadorRamalWhatsapp = document.getElementById('sep_ramal_whatsapp');
+      var separadorSite = document.getElementById('sep_contato_site');
+
+      var temTelefoneOuRamal = Boolean(telefone || ramal);
+
+      separadorTelefoneRamal.style.display = telefone && ramal ? 'inline' : 'none';
+      separadorRamalWhatsapp.style.display = temTelefoneOuRamal && whatsapp ? 'inline' : 'none';
+      separadorSite.style.display = temTelefoneOuRamal || whatsapp ? 'inline' : 'none';
+    }
+
+    function aplicarMascaraTelefone(campo) {
+      var posicaoOriginal = campo.selectionStart;
+      var tamanhoAntes = campo.value.length;
+
+      var digitos = campo.value.replace(/\D/g, '').slice(0, 11);
+      var ddd = digitos.slice(0, 2);
+      var resto = digitos.slice(2);
+      var formatado = digitos;
+
+      if (digitos.length > 2) {
+        if (digitos.length > 10) {
+          // 11 dígitos: celular, com o 9º dígito — separação 5-4.
+          formatado = '(' + ddd + ') ' + resto.slice(0, 5) + (resto.length > 5 ? '-' + resto.slice(5) : '');
+        } else if (resto.length > 4) {
+          // Até 10 dígitos: fixo (ou celular ainda incompleto) — separação 4-4.
+          formatado = '(' + ddd + ') ' + resto.slice(0, 4) + '-' + resto.slice(4);
+        } else {
+          formatado = '(' + ddd + ') ' + resto;
+        }
+      }
+
+      campo.value = formatado;
+
+      // Mantém o cursor numa posição razoável em vez de pular sempre para o final,
+      // já que a máscara pode inserir ou remover caracteres antes do ponto de edição.
+      var diferenca = formatado.length - tamanhoAntes;
+      var novaPosicao = Math.max(0, posicaoOriginal + diferenca);
+      campo.setSelectionRange(novaPosicao, novaPosicao);
+    }
+
+    function montarLinkWhatsApp(numeroDigitado) {
+      var digitos = numeroDigitado.replace(/\D/g, '');
+      if (!digitos) {
+        return '';
+      }
+      // Números sem código do país (DDD + telefone, 10 ou 11 dígitos) recebem o prefixo do Brasil (55).
+      // Números já digitados com código do país (12+ dígitos) são mantidos como estão.
+      var comCodigoPais = digitos.length <= 11 ? '55' + digitos : digitos;
+      return 'https://wa.me/' + comCodigoPais;
+    }
+
+    var CAMPOS_ARMAZENAVEIS = [
+      'in_nome', 'in_cargo', 'in_funcao',
+      'in_conselho_sigla', 'in_conselho_uf', 'in_registro_numero', 'in_conselho_outro',
+      'in_nivel1', 'in_nivel2', 'in_nivel3', 'in_nivel4',
+      'in_endereco', 'in_predio', 'in_andar', 'in_sala', 'in_cidade_uf', 'in_telefone', 'in_ramal', 'in_whatsapp'
+    ];
+    var CAMPOS_CHECKBOX = ['in_redes_sociais'];
+    var CHAVE_ARMAZENAMENTO = 'ufrrj_gerador_assinatura_v1';
+
+    function preencherEnderecoCampus() {
+      var valor = document.getElementById('in_campus').value;
+      if (valor) {
+        var partes = valor.split('|');
+        document.getElementById('in_endereco').value = partes[0] || '';
+        document.getElementById('in_cidade_uf').value = partes[1] || '';
+      }
+      updateSignature();
+    }
+
+    function toggleConselhoCampos() {
+      var sigla = document.getElementById('in_conselho_sigla').value;
+      var detalhes = document.getElementById('registro-detalhes');
+      var outroWrap = document.getElementById('registro-outro-wrap');
+      detalhes.style.display = sigla ? 'grid' : 'none';
+      outroWrap.style.display = sigla === '__outro__' ? 'block' : 'none';
+    }
+
+    function handleConselhoChange() {
+      var sigla = document.getElementById('in_conselho_sigla').value;
+      if (!sigla) {
+        // Voltou para "Não se aplica": limpa também UF, número e o campo de texto de "Outro",
+        // para não manter no armazenamento local um registro que não aparece mais na tela.
+        document.getElementById('in_conselho_uf').value = '';
+        document.getElementById('in_registro_numero').value = '';
+        document.getElementById('in_conselho_outro').value = '';
+      } else if (sigla !== '__outro__') {
+        // Trocou para um conselho listado: o campo de texto livre de "Outro" fica obsoleto.
+        document.getElementById('in_conselho_outro').value = '';
+      }
+      updateSignature();
+    }
+
+    function montarRegistro() {
+      var siglaSelecionada = document.getElementById('in_conselho_sigla').value;
+      var uf = document.getElementById('in_conselho_uf').value.trim();
+      var numero = document.getElementById('in_registro_numero').value.trim();
+      var outro = document.getElementById('in_conselho_outro').value.trim();
+
+      var sigla = siglaSelecionada === '__outro__' ? outro : siglaSelecionada;
+      if (!sigla || !numero) {
+        return '';
+      }
+      return uf ? (sigla + '/' + uf + ' ' + numero) : (sigla + ' ' + numero);
+    }
+
+    function formatarAndar(valor) {
+      if (!valor) {
+        return '';
+      }
+      // Termos que já são descrições completas do andar — não recebem o sufixo " andar".
+      var jaCompleto = /andar|térreo|terreo|subsolo|cobertura|mezanino|sobreloja/i.test(valor);
+      if (jaCompleto) {
+        return valor;
+      }
+      // Valor numérico/ordinal (ex.: "2", "2º") — garante o "º" antes de acrescentar "andar".
+      var comOrdinal = /º$/.test(valor) ? valor : valor + 'º';
+      return comOrdinal + ' andar';
+    }
+
+    function montarEndereco() {
+      var base = document.getElementById('in_endereco').value.trim();
+      var predio = document.getElementById('in_predio').value.trim();
+      var andar = formatarAndar(document.getElementById('in_andar').value.trim());
+      var sala = document.getElementById('in_sala').value.trim();
+      var cidadeUf = document.getElementById('in_cidade_uf').value.trim();
+
+      var complemento = [];
+      if (predio) {
+        complemento.push(predio);
+      }
+      if (andar) {
+        complemento.push(andar);
+      }
+      if (sala) {
+        complemento.push('Sala ' + sala);
+      }
+
+      if (!base) {
+        return '';
+      }
+      var texto = complemento.length ? base + ', ' + complemento.join(', ') : base;
+      return cidadeUf ? texto + ' – ' + cidadeUf : texto;
+    }
+
+    function salvarDadosLocais() {
+      try {
+        var dados = {};
+        CAMPOS_ARMAZENAVEIS.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento) {
+            dados[id] = elemento.value;
+          }
+        });
+        CAMPOS_CHECKBOX.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento) {
+            dados[id] = elemento.checked;
+          }
+        });
+        window.localStorage.setItem(CHAVE_ARMAZENAMENTO, JSON.stringify(dados));
+      } catch (erro) {
+        // Armazenamento local indisponível (ex.: navegação privada); a página segue funcionando sem persistência.
+      }
+    }
+
+    function carregarDadosLocais() {
+      try {
+        var bruto = window.localStorage.getItem(CHAVE_ARMAZENAMENTO);
+        if (!bruto) {
+          return;
+        }
+        var dados = JSON.parse(bruto);
+        CAMPOS_ARMAZENAVEIS.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento && typeof dados[id] === 'string') {
+            elemento.value = dados[id];
+          }
+        });
+        CAMPOS_CHECKBOX.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento && typeof dados[id] === 'boolean') {
+            elemento.checked = dados[id];
+          }
+        });
+      } catch (erro) {
+        // Dados salvos ausentes, corrompidos ou armazenamento indisponível; segue com os campos em branco.
+      }
+    }
+
+    function mostrarStorageStatus(mensagem, ehErro) {
+      var status = document.getElementById('storage-status');
+      status.textContent = mensagem;
+      status.classList.toggle('error', Boolean(ehErro));
+    }
+
+    function limparDadosSalvos() {
+      try {
+        window.localStorage.removeItem(CHAVE_ARMAZENAMENTO);
+      } catch (erro) {
+        // Armazenamento indisponível; nada a remover.
+      }
+      CAMPOS_ARMAZENAVEIS.forEach(function (id) {
+        var elemento = document.getElementById(id);
+        if (elemento) {
+          elemento.value = '';
+        }
+      });
+      CAMPOS_CHECKBOX.forEach(function (id) {
+        var elemento = document.getElementById(id);
+        if (elemento) {
+          elemento.checked = false;
+        }
+      });
+      updateSignature();
+      mostrarStorageStatus('Dados salvos neste navegador foram apagados.', false);
+    }
+
+    function nomeArquivoExportacao() {
+      var base = 'assinatura-ufrrj';
+      var nome = document.getElementById('in_nome').value.trim();
+      if (!nome) {
+        return base + '.json';
+      }
+      var slug = nome
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-+|-+$)/g, '');
+      return slug ? base + '-' + slug + '.json' : base + '.json';
+    }
+
+    function exportarDados() {
+      try {
+        var dados = {};
+        CAMPOS_ARMAZENAVEIS.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento) {
+            dados[id] = elemento.value;
+          }
+        });
+        CAMPOS_CHECKBOX.forEach(function (id) {
+          var elemento = document.getElementById(id);
+          if (elemento) {
+            dados[id] = elemento.checked;
+          }
+        });
+        var conteudo = JSON.stringify(dados, null, 2);
+        var blob = new Blob([conteudo], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = nomeArquivoExportacao();
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        mostrarStorageStatus('Dados exportados. Guarde o arquivo para preencher o formulário em outro computador.', false);
+      } catch (erro) {
+        mostrarStorageStatus('Não foi possível exportar os dados neste navegador.', true);
+      }
+    }
+
+    function importarDados(evento) {
+      var arquivo = evento.target.files && evento.target.files[0];
+      evento.target.value = ''; // permite selecionar o mesmo arquivo novamente depois, se preciso
+      if (!arquivo) {
+        return;
+      }
+      var leitor = new FileReader();
+      leitor.onload = function () {
+        try {
+          var dados = JSON.parse(leitor.result);
+          CAMPOS_ARMAZENAVEIS.forEach(function (id) {
+            var elemento = document.getElementById(id);
+            if (elemento && typeof dados[id] === 'string') {
+              elemento.value = dados[id];
+            }
+          });
+          CAMPOS_CHECKBOX.forEach(function (id) {
+            var elemento = document.getElementById(id);
+            if (elemento && typeof dados[id] === 'boolean') {
+              elemento.checked = dados[id];
+            }
+          });
+          updateSignature(); // updateSignature já salva os dados no armazenamento local deste navegador
+          mostrarStorageStatus('Dados importados com sucesso.', false);
+        } catch (erro) {
+          mostrarStorageStatus('Não foi possível importar o arquivo. Verifique se é um .json exportado por este gerador.', true);
+        }
+      };
+      leitor.onerror = function () {
+        mostrarStorageStatus('Não foi possível ler o arquivo selecionado.', true);
+      };
+      leitor.readAsText(arquivo, 'UTF-8');
+    }
+
+    function updateSignature() {
+      toggleConselhoCampos();
+
+      updateElement('in_nome', 'out_nome', 'block');
+      updateElement('in_cargo', 'out_cargo', 'block');
+      updateElement('in_funcao', 'out_funcao', 'block');
+      updateElement('in_nivel1', 'out_nivel1', 'block');
+      updateElement('in_nivel2', 'out_nivel2', 'block');
+      updateElement('in_nivel3', 'out_nivel3', 'block');
+      updateElement('in_nivel4', 'out_nivel4', 'block');
+      var endereco = montarEndereco();
+      var outEndereco = document.getElementById('out_endereco');
+      var outEnderecoContainer = document.getElementById('out_endereco_container');
+      outEndereco.textContent = endereco;
+      outEnderecoContainer.style.display = endereco ? 'block' : 'none';
+
+      updateElement('in_telefone', 'out_telefone', 'inline', 'out_telefone_container');
+      updateElement('in_ramal', 'out_ramal', 'inline', 'out_ramal_container');
+      updateElement('in_whatsapp', 'out_whatsapp', 'inline', 'out_whatsapp_container');
+
+      var registro = montarRegistro();
+      var outRegistro = document.getElementById('out_registro');
+      outRegistro.textContent = registro;
+      outRegistro.style.display = registro ? 'block' : 'none';
+
+      var telefone = document.getElementById('in_telefone').value.trim();
+      var telefoneLink = document.getElementById('out_telefone_link');
+      var telefoneNumeros = telefone.replace(/[^0-9+]/g, '');
+      telefoneLink.href = telefoneNumeros ? 'tel:' + telefoneNumeros : '#';
+
+      var whatsapp = document.getElementById('in_whatsapp').value.trim();
+      var whatsappLink = document.getElementById('out_whatsapp_link');
+      whatsappLink.href = whatsapp ? montarLinkWhatsApp(whatsapp) : '#';
+
+      document.getElementById('out_redes_sociais').style.display =
+        document.getElementById('in_redes_sociais').checked ? 'block' : 'none';
+
+      updateSeparators();
+
+      salvarDadosLocais();
+    }
+
+    function mostrarStatus(mensagem, ehErro) {
+      var status = document.getElementById('copy-status');
+      status.textContent = mensagem;
+      status.classList.toggle('error', Boolean(ehErro));
+    }
+
+    function copiarComSelecao(htmlAssinatura) {
+      var areaTemporaria = document.createElement('div');
+      areaTemporaria.innerHTML = htmlAssinatura;
+      areaTemporaria.style.position = 'fixed';
+      areaTemporaria.style.left = '-10000px';
+      areaTemporaria.style.top = '0';
+      areaTemporaria.style.opacity = '0';
+      document.body.appendChild(areaTemporaria);
+
+      var range = document.createRange();
+      range.selectNodeContents(areaTemporaria);
+      var selecao = window.getSelection();
+      selecao.removeAllRanges();
+      selecao.addRange(range);
+
+      var copiado = false;
+      try {
+        copiado = document.execCommand('copy');
+      } finally {
+        selecao.removeAllRanges();
+        document.body.removeChild(areaTemporaria);
+      }
+      return copiado;
+    }
+
+    async function copiarAssinatura() {
+      var nome = document.getElementById('in_nome').value.trim();
+      var cargo = document.getElementById('in_cargo').value.trim();
+      if (!nome || !cargo) {
+        mostrarStatus('Preencha ao menos Nome e Cargo antes de copiar a assinatura.', true);
+        return;
+      }
+
+      var assinatura = document.getElementById('assinatura');
+      var htmlAssinatura = assinatura.innerHTML;
+      var textoAssinatura = assinatura.innerText || assinatura.textContent;
+
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          var item = new ClipboardItem({
+            'text/html': new Blob([htmlAssinatura], { type: 'text/html' }),
+            'text/plain': new Blob([textoAssinatura], { type: 'text/plain' })
+          });
+          await navigator.clipboard.write([item]);
+        } else if (!copiarComSelecao(htmlAssinatura)) {
+          throw new Error('Não foi possível copiar o conteúdo.');
+        }
+        mostrarStatus('Assinatura copiada. Cole-a nas configurações do Gmail com Ctrl+V.', false);
+      } catch (erro) {
+        var fallbackFuncionou = copiarComSelecao(htmlAssinatura);
+        if (fallbackFuncionou) {
+          mostrarStatus('Assinatura copiada. Cole-a nas configurações do Gmail com Ctrl+V.', false);
+        } else {
+          mostrarStatus('Não foi possível copiar automaticamente. Selecione a assinatura e copie manualmente.', true);
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      carregarDadosLocais();
+      updateSignature();
+    });
+  </script>
+</body>
+</html>
