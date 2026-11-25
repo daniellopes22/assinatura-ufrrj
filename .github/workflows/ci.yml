@@ -115,7 +115,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Netlify Preview
-        uses: nwtgck/actions-netlify@v3.0
+        uses: nwtgck/actions-netlify@v4.0
         with:
           publish-dir: '.'
           production-branch: main
