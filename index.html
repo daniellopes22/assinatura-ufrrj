@@ -688,12 +688,13 @@
               <label for="in_campus">Campus <span class="optional">Opcional</span></label>
               <select id="in_campus" onchange="preencherEnderecoCampus()">
                 <option value="">Selecione para preencher o endereço automaticamente</option>
-                <option value="Campus Seropédica – BR-465, km 7|Seropédica/RJ">Seropédica (Sede)</option>
-                <option value="Instituto Multidisciplinar (IM) – Av. Governador Roberto Silveira, s/n, Centro|Nova Iguaçu/RJ">Nova Iguaçu – Instituto Multidisciplinar (IM)</option>
-                <option value="Instituto Três Rios (ITR) – Av. Prefeito Alberto Lavinas, 1847, Centro|Três Rios/RJ">Três Rios – Instituto Três Rios (ITR)</option>
-                <option value="Campus Dr. Leonel Miranda – Estrada do Açúcar, km 5, s/nº, Penha|Campos dos Goytacazes/RJ">Campos dos Goytacazes – Campus Dr. Leonel Miranda</option>
-                <option value="CPDA – Av. Presidente Vargas, 417, Centro|Rio de Janeiro/RJ">Rio de Janeiro (Centro) – CPDA</option>
+                <option value="Campus Seropédica|BR-465, km 7|Seropédica/RJ">Seropédica (Sede)</option>
+                <option value="Instituto Multidisciplinar (IM)|Av. Governador Roberto Silveira, s/n, Centro|Nova Iguaçu/RJ">Nova Iguaçu – Instituto Multidisciplinar (IM)</option>
+                <option value="Instituto Três Rios (ITR)|Av. Prefeito Alberto Lavinas, 1847, Centro|Três Rios/RJ">Três Rios – Instituto Três Rios (ITR)</option>
+                <option value="Campus Dr. Leonel Miranda|Estrada do Açúcar, km 5, s/nº, Penha|Campos dos Goytacazes/RJ">Campos dos Goytacazes – Campus Dr. Leonel Miranda</option>
+                <option value="CPDA|Av. Presidente Vargas, 417, Centro|Rio de Janeiro/RJ">Rio de Janeiro (Centro) – CPDA</option>
               </select>
+              <input type="hidden" id="in_campus_nome" value="">
               <p class="field-hint">Preenche logradouro e cidade/UF abaixo. Continua editável: complete com prédio e sala, ou corrija se sua unidade ficar em outro endereço dentro do mesmo município.</p>
             </div>
             <div class="form-group">
@@ -811,6 +812,8 @@
                       <span id="out_nivel2" style="display: none; color: #706F6F;"></span>
                       <span id="out_nivel3" style="display: none; color: #706F6F;"></span>
                       <span id="out_nivel4" style="display: none; color: #706F6F;"></span>
+
+                      <span id="out_campus_container" style="display: none; margin-top: 6px; color: #706F6F; font-weight: 700;"><span id="out_campus"></span></span>
 
                       <span id="out_endereco_container" style="display: none; margin-top: 6px; color: #706F6F;">
                         <strong style="color: #706F6F;">Endereço:</strong> <span id="out_endereco"></span>
@@ -954,7 +957,7 @@
       'in_nome', 'in_cargo', 'in_funcao',
       'in_conselho_sigla', 'in_conselho_uf', 'in_registro_numero', 'in_conselho_outro',
       'in_nivel1', 'in_nivel2', 'in_nivel3', 'in_nivel4',
-      'in_endereco', 'in_predio', 'in_andar', 'in_sala', 'in_cidade_uf', 'in_telefone', 'in_ramal', 'in_whatsapp'
+      'in_campus_nome', 'in_endereco', 'in_predio', 'in_andar', 'in_sala', 'in_cidade_uf', 'in_telefone', 'in_ramal', 'in_whatsapp'
     ];
     var CAMPOS_CHECKBOX = ['in_redes_sociais'];
     var CHAVE_ARMAZENAMENTO = 'ufrrj_gerador_assinatura_v1';
@@ -963,8 +966,11 @@
       var valor = document.getElementById('in_campus').value;
       if (valor) {
         var partes = valor.split('|');
-        document.getElementById('in_endereco').value = partes[0] || '';
-        document.getElementById('in_cidade_uf').value = partes[1] || '';
+        document.getElementById('in_campus_nome').value = partes[0] || '';
+        document.getElementById('in_endereco').value = partes[1] || '';
+        document.getElementById('in_cidade_uf').value = partes[2] || '';
+      } else {
+        document.getElementById('in_campus_nome').value = '';
       }
       updateSignature();
     }
@@ -1212,6 +1218,12 @@
       var outEnderecoContainer = document.getElementById('out_endereco_container');
       outEndereco.textContent = endereco;
       outEnderecoContainer.style.display = endereco ? 'block' : 'none';
+
+      var campusNome = document.getElementById('in_campus_nome').value.trim();
+      var outCampus = document.getElementById('out_campus');
+      var outCampusContainer = document.getElementById('out_campus_container');
+      outCampus.textContent = campusNome;
+      outCampusContainer.style.display = campusNome ? 'block' : 'none';
 
       updateElement('in_telefone', 'out_telefone', 'inline', 'out_telefone_container');
       updateElement('in_ramal', 'out_ramal', 'inline', 'out_ramal_container');
