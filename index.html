@@ -768,7 +768,32 @@
           <div class="preview-area">
             <p class="preview-label">Área de assinatura</p>
             <div id="assinatura">
-              <div style="width: 100%; max-width: 600px; background-color: transparent; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #706F6F; line-height: 1.45;">
+              <!-- Placeholder mostrado quando o formulário está vazio -->
+              <div id="preview-placeholder" style="width: 100%; max-width: 600px; background-color: transparent; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #B2B2B2; line-height: 1.45; font-style: italic;">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; max-width: 600px; background-color: transparent; border-collapse: collapse; table-layout: fixed; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #B2B2B2; line-height: 1.45;">
+                  <tr>
+                    <td width="108" style="width: 108px; padding: 4px 18px 4px 0; vertical-align: middle; border-right: 2px solid #008237; background-color: transparent;">
+                      <img src="https://institucional.ufrrj.br/ccs/files/2019/06/rural_logo03.png" alt="UFRRJ" width="92" style="display: block; width: 92px; max-width: 100%; height: auto; border: 0;">
+                    </td>
+                    <td style="padding: 4px 0 4px 18px; vertical-align: middle; word-wrap: break-word; overflow-wrap: anywhere; background-color: transparent;">
+                      <div style="margin-bottom: 8px;">
+                        <span style="display: block; margin-bottom: 2px; color: #14387f; font-size: 16px; font-weight: 900; line-height: 1.25;">Nome da Pessoa</span>
+                        <span style="display: block; color: #14387f; font-size: 12px; font-weight: 700; line-height: 1.4;">Assistente em Administração</span>
+                      </div>
+                      <span style="display: block; color: #706F6F;">Pró-Reitoria de Administração</span>
+                      <span style="display: block; color: #706F6F;">Departamento de Pessoal</span>
+                      <span style="display: block; margin-top: 6px; color: #706F6F;"><strong style="color: #706F6F;">Endereço:</strong> BR-465, km 7 – Seropédica/RJ</span>
+                      <span style="display: block; margin-top: 8px; color: #706F6F;">
+                        <span style="display: block;"><strong style="color: #706F6F;">Tel.:</strong> (21) 3333-4444</span>
+                        <span style="display: block;"><strong style="color: #706F6F;">Ramal:</strong> 1234</span>
+                        <span style="display: block;"><strong style="color: #706F6F;">WhatsApp:</strong> (21) 98765-4321</span>
+                      </span>
+                      <span style="display: block; margin-top: 8px; color: #706F6F;">www.ufrrj.br</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <div id="preview-real" style="width: 100%; max-width: 600px; background-color: transparent; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #706F6F; line-height: 1.45;">
                 <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="width: 100%; max-width: 600px; background-color: transparent; border-collapse: collapse; table-layout: fixed; font-family: Lato, Calibri, Arial, Helvetica, sans-serif; font-size: 12px; color: #706F6F;">
                   <tr>
                     <td width="108" style="width: 108px; padding: 4px 18px 4px 0; vertical-align: middle; border-right: 2px solid #008237; background-color: transparent;">
@@ -1209,10 +1234,23 @@
       document.getElementById('out_redes_sociais').style.display =
         document.getElementById('in_redes_sociais').checked ? 'block' : 'none';
 
+      // Alterna entre placeholder e conteúdo real da pré-visualização
+      var nome = document.getElementById('in_nome').value.trim();
+      var cargo = document.getElementById('in_cargo').value.trim();
+      var temDados = Boolean(nome || cargo);
+      document.getElementById('preview-placeholder').style.display = temDados ? 'none' : 'block';
+      document.getElementById('preview-real').style.display = temDados ? 'block' : 'none';
+
       updateSeparators();
 
       salvarDadosLocais();
     }
+
+    // Inicializa a visibilidade do placeholder ao carregar a página
+    document.addEventListener('DOMContentLoaded', function () {
+      carregarDadosLocais();
+      updateSignature();
+    });
 
     function mostrarStatus(mensagem, ehErro) {
       var status = document.getElementById('copy-status');
