@@ -1,0 +1,65 @@
+{
+  "extends": ["@commitlint/config-conventional"],
+  "rules": {
+    "type-enum": [
+      2,
+      "always",
+      [
+        "feat",
+        "fix",
+        "docs",
+        "style",
+        "refactor",
+        "perf",
+        "test",
+        "chore",
+        "revert",
+        "build",
+        "ci"
+      ]
+    ],
+    "type-case": [2, "always", "lower-case"],
+    "type-empty": [2, "never"],
+    "scope-case": [2, "always", "lower-case"],
+    "subject-case": [2, "always", "sentence-case"],
+    "subject-empty": [2, "never"],
+    "subject-full-stop": [2, "never", "."],
+    "header-max-length": [2, "always", 72],
+    "body-max-line-length": [2, "always", 100]
+  },
+  "prompt": {
+    "questions": {
+      "type": {
+        "description": "Selecione o tipo de mudança",
+        "enum": {
+          "feat": "Nova funcionalidade",
+          "fix": "Correção de bug",
+          "docs": "Documentação",
+          "style": "Formatação (CSS, espaçamento, sem mudança lógica)",
+          "refactor": "Refatoração de código",
+          "perf": "Melhoria de performance",
+          "test": "Testes",
+          "chore": "Manutenção (build, deps, configs)",
+          "revert": "Reverte commit anterior",
+          "build": "Sistema de build/dependências",
+          "ci": "CI/CD"
+        }
+      },
+      "scope": {
+        "description": "Escopo (opcional): campus, conselho, telefone, whatsapp, export, import, copy, a11y, ui, docs, deps, etc."
+      },
+      "subject": {
+        "description": "Descrição curta (imperativo, minúscula, sem ponto final)"
+      },
+      "body": {
+        "description": "Corpo da mensagem (opcional): motivação, contexto, breaking changes"
+      },
+      "breaking": {
+        "description": "Lista breaking changes (opcional)"
+      },
+      "issues": {
+        "description": "Issues relacionadas (opcional): Closes #123, Relates to #456"
+      }
+    }
+  }
+}

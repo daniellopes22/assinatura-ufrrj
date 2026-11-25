@@ -1,0 +1,54 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "https://ufrrj.netlify.app",
+      "reason": "Site de produção - pode falhar em CI sem DNS"
+    },
+    {
+      "pattern": "https://institucional.ufrrj.br",
+      "reason": "Domínio institucional - pode bloquear bots"
+    },
+    {
+      "pattern": "https://fonts.googleapis.com",
+      "reason": "Google Fonts - pode bloquear bots"
+    },
+    {
+      "pattern": "https://fonts.gstatic.com",
+      "reason": "Google Fonts static - pode bloquear bots"
+    },
+    {
+      "pattern": "https://support.google.com",
+      "reason": "Google Support - pode bloquear bots"
+    },
+    {
+      "pattern": "https://www.netlify.com",
+      "reason": "Netlify - pode bloquear bots"
+    },
+    {
+      "pattern": "https://www.contributor-covenant.org",
+      "reason": "Contributor Covenant - pode bloquear bots"
+    },
+    {
+      "pattern": "https://keepachangelog.com",
+      "reason": "Keep a Changelog - pode bloquear bots"
+    },
+    {
+      "pattern": "https://semver.org",
+      "reason": "SemVer - pode bloquear bots"
+    },
+    {
+      "pattern": "https://www.conventionalcommits.org",
+      "reason": "Conventional Commits - pode bloquear bots"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "/",
+      "replacement": "https://github.com/daniellopes22/assinatura-ufrrj/blob/main/"
+    }
+  ],
+  "aliveStatusCodes": [200, 206, 301, 302, 307, 308, 429],
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": 5000
+}

@@ -1,0 +1,125 @@
+name: 🐛 Bug Report
+description: Reporte um bug para nos ajudar a melhorar
+title: "[BUG] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar um bug! Por favor, preencha as informações abaixo para nos ajudar a reproduzir e corrigir o problema.
+
+  - type: checkboxes
+    id: prerequisites
+    attributes:
+      label: Pré-requisitos
+      description: Confirme antes de enviar
+      options:
+        - label: Testado no site de produção (https://ufrrj.netlify.app)
+          required: true
+        - label: Testado em navegação anônima/privada (para descartar cache/localStorage)
+          required: true
+        - label: Verifiquei se já existe issue semelhante aberta ou fechada
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição do Bug
+      description: Descreva claramente o que está acontecendo
+      placeholder: Ex.: Ao selecionar "Outro" no conselho de classe, o campo de texto não aparece...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Passos para Reproduzir
+      description: Passos mínimos e numerados para reproduzir o bug
+      placeholder: |
+        1. Acesse https://ufrrj.netlify.app
+        2. Preencha "Nome" e "Cargo"
+        3. Em "Conselho de classe", selecione "Outro (não listado)"
+        4. Observe que o campo "Nome/sigla do conselho" não aparece
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Comportamento Esperado
+      description: O que deveria acontecer?
+      placeholder: O campo de texto "Nome/sigla do conselho" deveria aparecer abaixo do select...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Comportamento Atual
+      description: O que acontece de fato?
+      placeholder: Nada acontece, o campo permanece oculto...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Navegador
+      description: Onde o bug ocorre?
+      options:
+        - Chrome (versão mais recente)
+        - Firefox (versão mais recente)
+        - Safari (versão mais recente)
+        - Edge (versão mais recente)
+        - Mobile Chrome (Android)
+        - Mobile Safari (iOS)
+        - Outro
+    validations:
+      required: true
+
+  - type: input
+    id: browser_version
+    attributes:
+      label: Versão do Navegador
+      description: Ex.: Chrome 120.0.6099.129
+      placeholder: "120.0.6099.129"
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Sistema Operacional
+      options:
+        - Windows 10/11
+        - macOS (versão)
+        - Linux (distro)
+        - Android
+        - iOS
+        - Outro
+    validations:
+      required: true
+
+  - type: textarea
+    id: console
+    attributes:
+      label: Erros no Console (F12 → Console)
+      description: Cole aqui quaisquer erros JavaScript relevantes
+      placeholder: "Nenhum erro" ou cole o stack trace
+      render: shell
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots/Vídeo
+      description: Arraste arquivos ou cole imagens (opcional mas recomendado para bugs visuais)
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Informações Adicionais
+      description | 
+        Qualquer contexto extra: configuração específica, dados de teste usados, etc.
+      placeholder: Ex.: Ocorre apenas quando o nome tem acentos...

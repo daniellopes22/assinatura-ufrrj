@@ -1,0 +1,134 @@
+name: CI - Validação e Qualidade
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validar HTML/CSS/JS
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install validation tools
+        run: |
+          npm install -g html-validate@latest @axe-core/cli@latest
+
+      - name: Validate HTML
+        run: |
+          html-validate index.html --formatter stylish
+
+      - name: Accessibility Audit (axe-core)
+        run: |
+          # Inicia servidor temporário
+          npx serve -l 3000 &
+          SERVER_PID=$!
+          sleep 3
+          # Executa axe
+          npx axe http://localhost:3000 --save results.json --exit
+          kill $SERVER_PID || true
+
+      - name: Upload axe results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-results
+          path: results.json
+
+  check-links:
+    name: Verificar Links
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check links in README
+        uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          config-file: '.markdown-link-check.json'
+
+  lint-commits:
+    name: Validar Commits (Conventional)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit messages
+        uses: wagoid/commitlint-github-action@v6
+        with:
+          configFile: '.commitlintrc.json'
+
+  spellcheck:
+    name: Verificar Ortografia
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Spell check
+        uses: rojopolis/spellcheck-github-actions@0.25.0
+        with:
+          file_types: '.md,.html,.txt,.yml,.yaml,.toml'
+          ignore_paths: 'node_modules,.git'
+          languages: 'pt-BR,en-US'
+          dictionary: '.github/dictionary.txt'
+
+  size-check:
+    name: Verificar Tamanho do Bundle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check file size
+        run: |
+          SIZE=$(wc -c < index.html)
+          SIZE_KB=$((SIZE / 1024))
+          echo "index.html size: ${SIZE_KB} KB"
+          # Alert se > 100KB (single file deve ser leve)
+          if [ $SIZE_KB -gt 100 ]; then
+            echo "::warning::index.html está grande (${SIZE_KB} KB). Considere otimizar."
+          fi
+
+  deploy-preview:
+    name: Deploy Preview (Netlify)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Netlify Preview
+        uses: nwtgck/actions-netlify@v3.0
+        with:
+          publish-dir: '.'
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy preview from PR #${{ github.event.pull_request.number }}"
+          enable-pull-request-comment: true
+          enable-commit-comment: true
+          overwrites-pull-request-comment: true
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        timeout-minutes: 5
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true

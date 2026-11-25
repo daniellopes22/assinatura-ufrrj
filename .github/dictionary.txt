@@ -1,0 +1,83 @@
+# Dicionário personalizado para spellcheck
+# Palavras técnicas, nomes próprios, siglas, etc.
+
+UFRRJ
+Netlify
+GitHub
+HTML
+CSS
+JS
+JavaScript
+JSON
+localStorage
+Clipboard
+FileReader
+wa.me
+mailto
+tel
+Gmail
+Outlook
+Seropédica
+Nova Iguaçu
+Três Rios
+Campos dos Goytacazes
+Angra dos Reis
+CPDA
+IM
+ITR
+PROEXT
+CITIC
+CRA
+CREA
+CRM
+OAB
+CRMV
+CRC
+CORECON
+CRECI
+COREM
+CRN
+CRO
+CRP
+CRQ
+CRESS
+CRDD
+CORE
+CRT
+CRTR
+CAU
+OMB
+CRB
+CRBio
+CRBM
+CRED
+CREF
+COREN
+CONFE
+CRF
+CREFITO
+CRFa
+CRMV
+CRN
+CRDD
+CRTR
+Lato
+Google Fonts
+preconnect
+display=swap
+NFD
+normalize
+kebab-case
+camelCase
+BEM
+WCAG
+ARIA
+CSP
+CORS
+CI/CD
+PR
+UI
+UX
+a11y
+i18n
+l10n

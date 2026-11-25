@@ -1,0 +1,85 @@
+name: ✨ Feature Request
+description: Sugira uma nova funcionalidade ou melhoria
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por sugerir uma melhoria! Descreva sua ideia com o máximo de detalhes possível.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema a Resolver
+      description: Qual problema esta funcionalidade resolve? Qual a dor do usuário?
+      placeholder: Ex.: Servidores do campus de Angra dos Reis não têm seu endereço preenchido automaticamente...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solução Proposta
+      description: Como você imagina a implementação?
+      placeholder: Ex.: Adicionar "Angra dos Reis – Campus..." na lista de campi com endereço completo...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternativas Consideradas
+      description: Outras soluções que você pensou e por que não servem
+      placeholder: Ex.: O usuário poderia digitar manualmente, mas isso aumenta chance de erro e padronização...
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impacto Estimado
+      options:
+        - Baixo (ajuste visual, typo, docs)
+        - Médio (novo campo, novo campus, novo conselho)
+        - Alto (nova funcionalidade: PDF, QR Code, assinatura HTML assíncrona, etc.)
+      default: 1
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: considerations
+    attributes:
+      label: Considerações Importantes
+      description | 
+        Marque as que se aplicam (ajuda na revisão)
+      options:
+        - label: Afeta privacidade (dados sensíveis, rede, armazenamento)
+        - label: Afeta acessibilidade (contraste, navegação teclado, leitores de tela)
+        - label: Afeta performance (tamanho do HTML, scripts, fontes)
+        - label: Requer mudança no formato de exportação/importação JSON (breaking change)
+        - label: Requer nova dependência externa (CDN, API, serviço)
+        - label: Afeta compatibilidade com Gmail/Outlook/cliente de e-mail
+
+  - type: textarea
+    id: mockups
+    attributes:
+      label: Mockups/Wireframes/Referências
+      description: Links para Figma, sketches, prints de outros sistemas, etc. (opcional)
+      placeholder: https://figma.com/... ou arraste imagem
+
+  - type: textarea
+    id: usecase
+    attributes:
+      label: Caso de Uso Real
+      description: Descreva uma situação concreta onde um servidor da UFRRJ precisaria disso
+      placeholder: Ex.: "Joana, técnica do campus Angra, precisa gerar assinatura mas o endereço não vem preenchido..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: willingness
+    attributes:
+      label: Disponibilidade
+      options:
+        - label: Posso implementar (tenho conhecimento de HTML/CSS/JS vanilla)
+        - label: Posso testar/revisar
+        - label: Apenas sugerindo (não posso codar no momento)

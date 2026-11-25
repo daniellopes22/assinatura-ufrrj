@@ -1,0 +1,18 @@
+# CODEOWNERS
+# Revisores automáticos para PRs
+
+# Global - todos os arquivos
+* @daniellopes22
+
+# Documentação
+*.md @daniellopes22
+
+# Configurações de CI/CD
+.github/workflows/ @daniellopes22
+.github/dependabot.yml @daniellopes22
+
+# Configurações de deploy
+netlify.toml @daniellopes22
+
+# Código principal
+index.html @daniellopes22
