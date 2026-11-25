@@ -1,7 +1,7 @@
 # Gerador de Assinatura Institucional — UFRRJ
 
 [![Deploy Netlify](https://img.shields.io/netlify/ufrrj?label=Netlify&logo=netlify)](https://ufrrj.netlify.app)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)](index.html)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)](index.html)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](index.html)
@@ -141,7 +141,7 @@ npx serve .
 
 ## 📄 Licença
 
-Distribuído sob a licença **MIT**. Veja [LICENSE](LICENSE) para detalhes.
+Distribuído sob a licença **GPL-3.0**. Veja [LICENSE](LICENSE) para detalhes.
 
 ---
 
