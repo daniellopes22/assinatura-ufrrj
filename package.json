@@ -1,0 +1,25 @@
+{
+  "name": "gerador-assinatura-ufrrj",
+  "version": "1.0.0",
+  "description": "Gerador de assinatura institucional para UFRRJ - single-file estático",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint:html": "html-validate index.html",
+    "lint:a11y": "axe-cli index.html"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "html-validate": "^8.0.0",
+    "axe-core": "^4.8.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "testMatch": ["**/tests/**/*.test.js"],
+    "moduleFileExtensions": ["js"],
+    "setupFiles": []
+  }
+}

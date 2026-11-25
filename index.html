@@ -845,7 +845,12 @@
       </section>
     </div>
 
-    <footer class="page-footer"><strong>Uso institucional — UFRRJ</strong> · Universidade Federal Rural do Rio de Janeiro · Desenvolvido pela CITIC — Coordenação de Infraestrutura de TIC</footer>
+    <footer class="page-footer">
+  <strong>Uso institucional — UFRRJ</strong> · Universidade Federal Rural do Rio de Janeiro · Desenvolvido pela CITIC — Coordenação de Infraestrutura de TIC
+  <br>
+  <a href="/privacidade.html" style="color: var(--texto-suave); text-decoration: underline;">Política de Privacidade (LGPD)</a> ·
+  <a href="/privacidade.html" style="color: var(--texto-suave); text-decoration: underline;">Como seus dados são usados</a>
+</footer>
   </main>
 
   <noscript>
@@ -904,7 +909,8 @@
       // Mantém o cursor numa posição razoável em vez de pular sempre para o final,
       // já que a máscara pode inserir ou remover caracteres antes do ponto de edição.
       var diferenca = formatado.length - tamanhoAntes;
-      var novaPosicao = Math.max(0, posicaoOriginal + diferenca);
+      var posicaoSegura = posicaoOriginal || 0;
+      var novaPosicao = Math.max(0, posicaoSegura + diferenca);
       campo.setSelectionRange(novaPosicao, novaPosicao);
     }
 
